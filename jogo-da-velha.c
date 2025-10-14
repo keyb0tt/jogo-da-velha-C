@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+bool winCondition(int somaX, int somaO){
+    if(somaX == 3 || somaO == 6){
+      return true;
+    }
+    return 0;
+}
 
 bool gameFinished(int matriz[3][3]){
     int somaX = 0, somaO = 0;
@@ -16,11 +22,11 @@ bool gameFinished(int matriz[3][3]){
         }
         printf("\nsomax=%d somao=%d", somaX, somaO);
     }
-    
-    if(somaX == 3 || somaO == 6){
+
+    if(winCondition(somaX, somaO)){
+        somaX = 0; somaO = 0;
         return true;
     }
-    somaX = 0, somaO = 0;
     
     // Diagonal Secundária
     int x = 2; 
@@ -34,11 +40,11 @@ bool gameFinished(int matriz[3][3]){
         }
         x--;
     }
-    
-    if(somaX == 3 || somaO == 6){
+
+    if(winCondition(somaX, somaO)){
+        somaX = 0; somaO = 0;
         return true;
     }
-    somaX = 0; somaO = 0;
     
     return 0;
 }
@@ -56,9 +62,9 @@ int main(){
     int playerType;
     
     int matriz[3][3] = {
-        0, 0, 2,
-        0, 2, 0,
-        2, 0, 0
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
         // 1 == X; 2 == O; 0 == NULL;
     };
     
