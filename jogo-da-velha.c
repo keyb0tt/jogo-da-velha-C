@@ -8,33 +8,30 @@ bool winCondition(int xScore, int oScore){
     return 0;
 }
 
-bool gameFinished(int matriz[3][3]){
+bool mainDiagonalScore(int gameState[3][3]){
     int xScore = 0, oScore = 0;
     
-    // Diagonal Principal
     for(int i = 0; i <= 2; i++){
-        if(matriz[i][i] == 1){
-            xScore += matriz[i][i];
-        } else if(matriz[i][i] == 2){
-            oScore += matriz[i][i];
+        if(gameState[i][i] == 1){
+            xScore += gameState[i][i];
+        } else if(gameState[i][i] == 2){
+            oScore += gameState[i][i];
         } else{
             break;
         }
-        printf("\nxScore=%d oScore=%d", xScore, oScore);
     }
 
-    if(winCondition(xScore, oScore)){
-        xScore = 0; oScore = 0;
-        return true;
-    }
-    
-    // Diagonal Secundária
-    int x = 2; 
+    return winCondition(xScore, oScore);
+}
+
+bool secondDiagonalScore(int gameState[3][3]){
+    int xScore = 0, oScore = 0, x = 2;
+
     for(int i = 0; i <= 2; i++){
-        if(matriz[i][x] == 1){
-            xScore += matriz[i][x];
-        } else if(matriz[i][x] == 2){
-            oScore += matriz[i][x];
+        if(gameState[i][x] == 1){
+            xScore += gameState[i][x];
+        } else if(gameState[i][x] == 2){
+            oScore += gameState[i][x];
         } else {
             break;
         }
@@ -42,18 +39,21 @@ bool gameFinished(int matriz[3][3]){
         x--;
     }
 
-    if(winCondition(xScore, oScore)){
-        xScore = 0; oScore = 0;
+    return winCondition(xScore, oScore);
+}
+
+bool gameFinished(int gameState[3][3]){
+    if(mainDiagonalScore(gameState) || secondDiagonalScore(gameState)){
         return true;
     }
     
     return 0;
 }
 
-void showTable(int matriz[3][3]){
+void showTable(int gameState[3][3]){
     for(int i = 0; i <= 2; i++){
         for(int j = 0; j <= 2; j++){
-            printf(" %d ", matriz[i][j]);
+            printf(" %d ", gameState[i][j]);
         }
         printf("\n");
     }
@@ -62,16 +62,16 @@ void showTable(int matriz[3][3]){
 int main(){
     int playerType;
     
-    int matriz[3][3] = {
+    int gameState[3][3] = {
         1, 0, 0,
         0, 1, 0,
         0, 0, 1
         // 1 == X; 2 == O; 0 == NULL;
     };
     
-    showTable(matriz);
+    showTable(gameState);
     
-    printf("\n%d", gameFinished(matriz));
+    printf("\n%d\n", mainDiagonalScore(gameState));
 
     return 0;
 }   
