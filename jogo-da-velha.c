@@ -42,19 +42,44 @@ bool secondDiagonalScore(int gameState[3][3]){
     return winCondition(xScore, oScore);
 }
 
+bool columnScore(int gameState[3][3]){
+    int xScore = 0, oScore = 0;
+
+    for(int c = 0; c <= 2; c++){
+        for(int r = 0; r <= 2; r++){
+            if(gameState[r][c] == 1){
+                xScore += gameState[r][c];
+                if(xScore < 3 && r == 3){
+                    xScore = 0;
+                }
+            }
+            if(gameState[r][c] == 2){
+                oScore += gameState[r][c];
+                if(oScore < 6 && r == 3){
+                    oScore = 0;
+                } 
+            } else {
+                break;
+            }            
+        }
+    }
+
+    return winCondition(xScore, oScore);
+}
+
 bool rowScore(int gameState[3][3]){
     int xScore = 0, oScore = 0;
 
-    for(int i = 0; i <= 2; i++){
-        for(int j = 0; j <= 2; j++){
-            if(gameState[i][j] == 1){
-                xScore += gameState[i][j];
-                if(xScore < 3 && j == 3){
+    for(int r = 0; r <= 2; r++){
+        for(int c = 0; c <= 2; c++){
+            if(gameState[c][r] == 1){
+                xScore += gameState[c][r];
+                if(xScore < 3 && c == 3){
                     xScore = 0;
                 }
-            } else if(gameState[i][j] == 2){
-                oScore += gameState[i][j];
-                if(oScore < 6 && j == 3){
+            } else if(gameState[c][r] == 2){
+                oScore += gameState[c][r];
+                if(oScore < 6 && c == 3){
                     oScore = 0;
                 }
             } else {
@@ -67,7 +92,7 @@ bool rowScore(int gameState[3][3]){
 }
 
 bool gameFinished(int gameState[3][3]){
-    if(mainDiagonalScore(gameState) || secondDiagonalScore(gameState) || rowScore(gameState)){
+    if(mainDiagonalScore(gameState) || secondDiagonalScore(gameState) || rowScore(gameState) || columnScore(gameState)){
         return true;
     }
     
@@ -87,9 +112,9 @@ int main(){
     int playerType;
     
     int gameState[3][3] = {
-        0, 0, 1,
-        1, 1, 1,
-        0, 1, 0
+        1, 0, 0,
+        1, 0, 0,
+        1, 0, 0
         // 1 == X; 2 == O; 0 == NULL;
     };
     
