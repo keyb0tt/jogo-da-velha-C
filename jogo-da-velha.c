@@ -100,9 +100,21 @@ bool gameFinished(int gameState[3][3]){
 }
 
 void showTable(int gameState[3][3]){
-    for(int i = 0; i <= 2; i++){
-        for(int j = 0; j <= 2; j++){
-            printf(" %d ", gameState[i][j]);
+    for(int r = 0; r <= 2; r++){
+        for(int c = 0; c <= 2; c++){
+            if(gameState[r][c] == 1){
+                printf(" X ");
+            }
+            if(c <= 1){
+                printf("|");
+            }
+            if(gameState[r][c] == 2){
+                printf(" O ");
+            }
+            if(gameState[r][c] == 0){
+                printf("  ");
+            }
+
         }
         printf("\n");
     }
@@ -112,15 +124,14 @@ int main(){
     int playerType;
     
     int gameState[3][3] = {
-        1, 0, 0,
-        1, 0, 0,
-        1, 0, 0
+        1, 1, 1,
+        1, 1, 1,
+        1, 1, 1
         // 1 == X; 2 == O; 0 == NULL;
     };
     
+    printf("\n\n");
     showTable(gameState);
-    
-    printf("\n%d\n", gameFinished(gameState));
 
     return 0;
 }   
