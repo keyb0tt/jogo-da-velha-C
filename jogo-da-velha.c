@@ -43,7 +43,7 @@ bool gameFinished(int matriz[3][3]){
     }
 
     if(winCondition(xScore, oScore)){
-        xScore = 0; oScore = 0;https://accounts.spotify.com/en/v2/login?continue=https%3A%2F%2Fopen.spotify.com%2F
+        xScore = 0; oScore = 0;
         return true;
     }
     
