@@ -134,6 +134,7 @@ void showTable(int gameState[3][3]){
     int counter = 0;
 
     for(int r = 0; r <= 2; r++){
+        printf("                      ");
         for(int c = 0; c <= 2; c++, counter++){
             if(gameState[r][c] == 1){
                 printf(" X ");
@@ -146,7 +147,7 @@ void showTable(int gameState[3][3]){
             }
             if(c <= 1){
                 printf("|");
-            }
+            }            
         }
         printf("\n");
     }
@@ -169,13 +170,13 @@ int main(){
 
     while(true){
         if(counter % 2 == 0){
-            printf("\n%d° Turno, movimento do X\n", counter + 1);
-            printf("Selecione a casa: ");
+            printf("\n  %d° Turno, movimento do X\n", counter + 1);
+            printf("  Selecione a casa: ");
             scanf("%d", &playerChoice);
             printf("\n");
         } else {
-            printf("\n%d° Turno, movimento do O\n", counter + 1);
-            printf("Selecione a casa: ");
+            printf("\n  %d° Turno, movimento do O\n", counter + 1);
+            printf("  Selecione a casa: ");
             scanf("%d", &playerChoice);
             printf("\n");
         }
@@ -204,15 +205,15 @@ int main(){
 
         // Condições de fim de jogo
         if(gameFinished(gameState) == 1){
-            printf("\nFim de jogo!\nO ganhador foi o jogador X!\n");
+            printf("\n  Fim de jogo!\n  O ganhador foi o jogador X!\n");
             printf("\n<---------------------------------------------------->\n");
             return 0;
         } else if(gameFinished(gameState) == 2){
-            printf("\nFim de jogo!\nO ganhador foi o jogador O!\n");
+            printf("\n  Fim de jogo!\n  O ganhador foi o jogador O!\n");
             printf("\n<---------------------------------------------------->\n");
             return 0;
         } if(counter == 8 && gameFinished(gameState) != 1 && gameFinished(gameState) != 2){
-            printf("\nFim de jogo!\nOs jogadores empataram!\n");
+            printf("\n  Fim de jogo!\n  Os jogadores empataram!\n");
             printf("\n<---------------------------------------------------->\n");
             return 0;
         }
