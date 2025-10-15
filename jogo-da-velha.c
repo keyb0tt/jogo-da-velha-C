@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 struct Point 
 {
@@ -152,6 +153,7 @@ void showTable(int gameState[3][3]){
 }
 
 int main(){
+    system("clear");
     int playerChoice, counter = 0;
     
     int gameState[3][3] = {
@@ -161,7 +163,7 @@ int main(){
         // 1 == X; 0 == O; 0 == NULL;
     };
 
-    printf("\n\n<---------------------------------------------------->\n\n");
+    printf("<---------------------------------------------------->\n\n");
     showTable(gameState);
     printf("\n<---------------------------------------------------->\n");
 
@@ -177,14 +179,15 @@ int main(){
             scanf("%d", &playerChoice);
             printf("\n");
         }
+
+        system("clear");
     
         struct Point playerMovement = moveConverter(playerChoice);
 
         if(gameState[playerMovement.x][playerMovement.y] != 0){
-            printf("\n<---------------------------------------------------->\n");
-            printf("\nMovimento já realizado\n");
-            printf("\n<---------------------------------------------------->\n\n");
+            printf("<---------------Movimento já realizado--------------->\n\n");
             showTable(gameState);
+            printf("                                ");
             printf("\n<---------------------------------------------------->\n");
             continue;
         }
