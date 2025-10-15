@@ -6,17 +6,17 @@ struct Point
     int x, y;
 }; 
 
-bool winCondition(int xScore, int oScore){
-    if(xScore == 3 || oScore == 6){
-      return true;
-    } else {
-        return false;
+int winCondition(int xScore, int oScore){
+    if(xScore == 3){
+      return 1;
+    } else if(oScore == 6){
+        return 2;
     }
 
     return 0;
 }
 
-bool mainDiagonalScore(int gameState[3][3]){
+int mainDiagonalScore(int gameState[3][3]){
     int xScore = 0, oScore = 0;
     
     for(int i = 0; i <= 2; i++){
@@ -32,7 +32,7 @@ bool mainDiagonalScore(int gameState[3][3]){
     return winCondition(xScore, oScore);
 }
 
-bool secondDiagonalScore(int gameState[3][3]){
+int secondDiagonalScore(int gameState[3][3]){
     int xScore = 0, oScore = 0, x = 2;
 
     for(int i = 0; i <= 2; i++){
@@ -50,7 +50,7 @@ bool secondDiagonalScore(int gameState[3][3]){
     return winCondition(xScore, oScore);
 }
 
-bool columnScore(int gameState[3][3]){
+int columnScore(int gameState[3][3]){
     int xScore = 0, oScore = 0, row;
     
     for(int column = 0; column <= 2; column++){
@@ -75,7 +75,7 @@ bool columnScore(int gameState[3][3]){
 } 
 
 
-bool rowScore(int gameState[3][3]){
+int rowScore(int gameState[3][3]){
     int xScore = 0, oScore = 0, column;
 
     for(int row = 0; row <= 2; row++){
@@ -99,9 +99,11 @@ bool rowScore(int gameState[3][3]){
     return winCondition(xScore, oScore);
 }
 
-bool gameFinished(int gameState[3][3]){
-    if(mainDiagonalScore(gameState) || secondDiagonalScore(gameState) || rowScore(gameState) || columnScore(gameState)){
-        return true;
+int gameFinished(int gameState[3][3]){
+    if(mainDiagonalScore(gameState) == 1 || secondDiagonalScore(gameState) == 1 || rowScore(gameState) == 1 || columnScore(gameState) == 1){
+        return 1;
+    } else if(mainDiagonalScore(gameState) == 2 || secondDiagonalScore(gameState) == 2 || rowScore(gameState) == 2 || columnScore(gameState) == 2){
+        return 2;
     }
     
     return 0;
@@ -148,7 +150,7 @@ void showTable(int gameState[3][3]){
 }
 
 int main(){
-    int playerType;
+    int playerChoice, counter = 0;
     
     int gameState[3][3] = {
         0, 0, 0,
@@ -156,38 +158,60 @@ int main(){
         0, 0, 0
         // 1 == X; 0 == O; 0 == NULL;
     };
-    
-    printf("\n\n");
+
+    printf("\n\n<---------------------------------------------------->\n\n");
     showTable(gameState);
-    printf("\n\n");
-    printf("\n\ncolumn:%d\n", columnScore(gameState));
-    printf("\nrow:%d\n", rowScore(gameState));
+    printf("\n<---------------------------------------------------->\n");
 
-    // int playerChoice;
-    // int counter = 0;
+    while(true){
+        if(counter % 2 == 0){
+            printf("\n%d° Turno, movimento do X\n", counter + 1);
+            printf("Selecione a casa: ");
+            scanf("%d", &playerChoice);
+            printf("\n");
+        } else {
+            printf("\n%d° Turno, movimento do O\n", counter + 1);
+            printf("Selecione a casa: ");
+            scanf("%d", &playerChoice);
+            printf("\n");
+            
+        }
     
-    // while(true){
-    //     printf("\n%d° Turno\n", counter + 1);
-    //     scanf("%d", &playerChoice);
-    
-    //     struct Point playerMovement = moveConverter(playerChoice);
-    //     if(gameState[playerMovement.x][playerMovement.y] != 0){
-    //         printf("\nMovimento já realizado\n");
-    //         showTable(gameState);
-    //         continue;
-    //     }
-    //     if(counter % 2 == 0){
-    //         gameState[playerMovement.x][playerMovement.y] = 1;
-    //     } else {
-    //         gameState[playerMovement.x][playerMovement.y] = 2;   
-    //     }
-    //     showTable(gameState);
-    //     if(gameFinished(gameState)){
-    //         return 0;
-    //     }
+        struct Point playerMovement = moveConverter(playerChoice);
 
-    //     counter++;
-    // }
+        if(gameState[playerMovement.x][playerMovement.y] != 0){
+            printf("\n<---------------------------------------------------->\n");
+            printf("\nMovimento já realizado\n");
+            printf("\n<---------------------------------------------------->\n\n");
+            showTable(gameState);
+            printf("\n<---------------------------------------------------->\n");
+            continue;
+        }
+        if(counter % 2 == 0){
+            gameState[playerMovement.x][playerMovement.y] = 1;
+        } else {
+            gameState[playerMovement.x][playerMovement.y] = 2;   
+        }
+
+        printf("<--------------Atualização do tabuleiro-------------->\n\n");
+        showTable(gameState);
+        printf("\n<---------------------------------------------------->\n");
+
+        if(gameFinished(gameState) == 1){
+            printf("\nFim de jogo!\nO ganhador foi o jogador X!\n");
+            printf("\n<---------------------------------------------------->\n");
+            return 0;
+        } else if(gameFinished(gameState) == 2){
+            printf("\nFim de jogo!\nO ganhador foi o jogador O!\n");
+            printf("\n<---------------------------------------------------->\n");
+            return 0;
+        } if(gameFinished(gameState) != 1 && gameFinished(gameState) != 2){
+            printf("\nFim de jogo!\nOs jogadores empataram!\n");
+            printf("\n<---------------------------------------------------->\n");
+        }
+
+        counter++;
+    }
 
     return 0;
 }   
