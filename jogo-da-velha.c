@@ -151,8 +151,8 @@ int main(){
     int playerType;
     
     int gameState[3][3] = {
-        2, 1, 1,
-        1, 2, 1,
+        0, 0, 0,
+        0, 0, 0,
         0, 0, 0
         // 1 == X; 0 == O; 0 == NULL;
     };
