@@ -24,7 +24,7 @@ int mainDiagonalScore(int gameState[3][3]){
             xScore += gameState[i][i];
         } else if(gameState[i][i] == 2){
             oScore += gameState[i][i];
-        } else{
+        } else {
             break;
         }
     }
@@ -112,6 +112,7 @@ int gameFinished(int gameState[3][3]){
 struct Point moveConverter(int movement){
     int counter = 0;
     struct Point point;
+
     point.x = 0, point.y = 0;
 
     for(int r = 0; r <= 2; r++){
@@ -124,6 +125,7 @@ struct Point moveConverter(int movement){
             counter++;
         }
     }        
+
     return point;
 }
 
@@ -174,7 +176,6 @@ int main(){
             printf("Selecione a casa: ");
             scanf("%d", &playerChoice);
             printf("\n");
-            
         }
     
         struct Point playerMovement = moveConverter(playerChoice);
@@ -187,6 +188,7 @@ int main(){
             printf("\n<---------------------------------------------------->\n");
             continue;
         }
+
         if(counter % 2 == 0){
             gameState[playerMovement.x][playerMovement.y] = 1;
         } else {
@@ -197,6 +199,7 @@ int main(){
         showTable(gameState);
         printf("\n<---------------------------------------------------->\n");
 
+        // Condições de fim de jogo
         if(gameFinished(gameState) == 1){
             printf("\nFim de jogo!\nO ganhador foi o jogador X!\n");
             printf("\n<---------------------------------------------------->\n");
@@ -205,9 +208,10 @@ int main(){
             printf("\nFim de jogo!\nO ganhador foi o jogador O!\n");
             printf("\n<---------------------------------------------------->\n");
             return 0;
-        } if(gameFinished(gameState) != 1 && gameFinished(gameState) != 2){
+        } if(counter == 8 && gameFinished(gameState) != 1 && gameFinished(gameState) != 2){
             printf("\nFim de jogo!\nOs jogadores empataram!\n");
             printf("\n<---------------------------------------------------->\n");
+            return 0;
         }
 
         counter++;
